@@ -11,5 +11,5 @@ class RandomGameController(Resource):
         return {'message': 'Success', 'data': id}, 200
 
     def get(self, index):
-
+        top_game = self.get_game()
         return
