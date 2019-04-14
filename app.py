@@ -2,6 +2,7 @@ from flask import Flask
 from flask_restful import Api
 from controllers.GroupController import GroupController
 from controllers.UserController import UserController
+from controllers.ActivityController import ActivityController
 
 app = Flask(__name__)
 
@@ -19,6 +20,7 @@ def index():
 
 api.add_resource(UserController, '/users')
 api.add_resource(GroupController, '/groups')
+api.add_resource(ActivityController, '/activity')
 
 
 if __name__ == '__main__':
