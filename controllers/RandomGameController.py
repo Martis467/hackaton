@@ -21,12 +21,12 @@ class RandomGameController(Resource):
 
         if group_id == 1:
             game_users = users[0:3]
-            randomWinner = random.randint(0, len(game_users))
-            user = game_users[randomWinner]
+            randomWinner = random.randint(1, len(game_users))
+            user = game_users[randomWinner-1]
         else:
             game_users = users[3:]
-            randomWinner = random.randint(0, len(game_users))
-            user = game_users[randomWinner]
+            randomWinner = random.randint(1, len(game_users))
+            user = game_users[randomWinner-1]
 
 
         data = {'id': user.id,
