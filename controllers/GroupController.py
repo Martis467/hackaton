@@ -1,5 +1,6 @@
 from flask_restful import Resource
 from Repositories import get_db
+from repository.DatabaseManager import querry_database
 
 
 class GroupController(Resource):
@@ -16,7 +17,15 @@ class GroupController(Resource):
         return {'message': 'Success', 'data': groups}, 200
 
     def get_groups(self):
-        return get_db()
+        user_result = querry_database('SELECT * FROM User')
+
+        users = []
+
+        for row in user_result:
+            user = User(row)
+            users.append(user)
+
+        return users
 
 
 def convert_to_json(group):
