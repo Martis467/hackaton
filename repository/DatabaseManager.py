@@ -34,3 +34,10 @@ def insert_to_database(sql, task):
     conn.commit()
 
     return cur.lastrowid
+
+
+def get_top(sql):
+    conn = create_connection("randomizer.db")
+    cur = conn.cursor()
+    cur.execute(sql)
+    return cur.lastrowid
