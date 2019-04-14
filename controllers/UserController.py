@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 class UserController(Resource):
     def get(self):
-        shelf = get_db()
+        shelf = self.get_users()
         keys = list(shelf.keys())
 
         users = []
@@ -16,6 +16,9 @@ class UserController(Resource):
             users.append(convert_to_json(shelf[key]))
 
         return {'message': 'Success', 'data': users}, 200
+
+    def get_users(self):
+        return get_db("user.db")
 
 
 def convert_to_json(user):

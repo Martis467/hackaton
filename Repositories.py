@@ -5,10 +5,10 @@ from models.User import User
 app = Flask(__name__)
 
 
-def get_db():
+def get_db(database):
     db = getattr(g, '_database', None)
     if db is None:
-        db = g._database = shelve.open("users.db")
+        db = g._database = shelve.open(database)
     return db
 
 
@@ -20,10 +20,14 @@ def teardown_db(exception):
 
 
 def fill_users():
-    shelf = get_db()
+    shelf = get_db("user.db")
 
-    danius = User(1, "Danius Trumpickas", 'https://timebase.lt/media/cache/user_show_small_thumb_retina/uploads/users/2073_f85066f654ba3433775282caa741a5c1526e60ad.jpeg')
-    ernesta = User(2, "Ernesta Daugenaite", 'https://timebase.lt/media/cache/user_show_small_thumb_retina/uploads/users/3278_39eff5fc59cc56898d2d87df6c70fde746648997.jpeg')
+    danius = User(1, "Danius Trumpickas",
+                  'https://timebase.lt/media/cache/user_show_small_thumb_retina/uploads/users/2073_f85066f654ba3433775282caa741a5c1526e60ad.jpeg')
+    ernesta = User(2, "Ernesta Daugenaite",
+                   'https://timebase.lt/media/cache/user_show_small_thumb_retina/uploads/users/3278_39eff5fc59cc56898d2d87df6c70fde746648997.jpeg')
 
+    if str(danius.id) in shelf:
+        return
     shelf[str(danius.id)] = danius
     shelf[str(ernesta.id)] = ernesta
