@@ -1,5 +1,5 @@
 from flask_restful import Resource, reqparse
-from repository.DatabaseManager import querry_database
+from repository.DatabaseManager import querry_database, insert_to_database
 from models.Activity import Activity
 
 
@@ -17,7 +17,9 @@ class ActivityController(Resource):
         return {'message': 'Success'}, 200
 
     def post_activity(self, name, date):
-        return querry_database('INSERT INTO Activity (Name, DateCreated) VALUES({},{})'.format(name, date))
+        sql = ''' INSERT INTO Activity(Name, DateCreated) VALUES(?,?) '''
+        task = (name, date)
+        insert_to_database(sql, task)
 
     def get(self):
         activity_result = self.get_activity()
@@ -41,7 +43,7 @@ class ActivityController(Resource):
         return activities
 
 
-def convert_to_json(activities):
-    return {'id': activities.id,
-            'name': activities.name,
-            'date': activities.date}
+def convert_to_json(activity):
+    return {'id': activity.id,
+            'name': activity.name,
+            'date': activity.date}

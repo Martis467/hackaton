@@ -25,3 +25,10 @@ def querry_database(sql):
     rows = cur.fetchall()
 
     return rows
+
+
+def insert_to_database(sql, task):
+    conn = create_connection("randomizer.db")
+    cur = conn.cursor()
+    cur.execute(sql, task)
+    conn.commit()
