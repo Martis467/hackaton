@@ -38,8 +38,8 @@ def fill_users():
 def fill_groups():
     shelf = get_db("group.db")
 
-    floor6 = Group(1, 'Mediapark  - 6th floor (25)')
-    partners = Group(2, 'Mediapark HCK (101)')
+    floor6 = Group(101, 'Mediapark  - 6th floor (25)')
+    partners = Group(102, 'Mediapark HCK (101)')
 
     if str(floor6.id) in shelf:
         return
