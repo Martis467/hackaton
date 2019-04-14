@@ -20,7 +20,7 @@ def index():
 
 api.add_resource(UserController, '/users')
 api.add_resource(GroupController, '/groups')
-api.add_resource(ActivityController, '/activity')
+api.add_resource(ActivityController, '/activities')
 
 
 if __name__ == '__main__':
