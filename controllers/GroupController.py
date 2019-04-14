@@ -16,7 +16,7 @@ class GroupController(Resource):
         return {'message': 'Success', 'data': groups}, 200
 
     def get_groups(self):
-        return get_db("group.db")
+        return get_db()
 
 
 def convert_to_json(group):

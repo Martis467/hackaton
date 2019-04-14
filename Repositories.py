@@ -6,10 +6,10 @@ from models.Group import Group
 app = Flask(__name__)
 
 
-def get_db(database):
+def get_db():
     db = getattr(g, '_database', None)
     if db is None:
-        db = g._database = shelve.open(database)
+        db = g._database = shelve.open('user.db')
     return db
 
 
@@ -21,7 +21,7 @@ def teardown_db(exception):
 
 
 def fill_users():
-    shelf = get_db("user.db")
+    shelf = get_db()
 
     danius = User(1, "Danius Trumpickas",
                   'https://timebase.lt/media/cache/user_show_small_thumb_retina/uploads/users/2073_f85066f654ba3433775282caa741a5c1526e60ad.jpeg')
@@ -49,9 +49,11 @@ def fill_users():
     shelf[str(sarunas.id)] = sarunas
     shelf[str(alexei.id)] = alexei
 
+    teardown_db("Unexpected error occured")
+
 
 def fill_groups():
-    shelf = get_db("group.db")
+    shelf = get_db()
 
     floor6 = Group(101, 'Mediapark  - 6th floor (25)')
     partners = Group(102, 'Mediapark HCK (101)')
@@ -61,3 +63,5 @@ def fill_groups():
 
     shelf[str(floor6.id)] = floor6
     shelf[str(partners.id)] = partners
+
+    teardown_db("Unexpected error occured")
