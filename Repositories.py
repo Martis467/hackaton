@@ -1,6 +1,7 @@
 import shelve
 from flask import Flask, g
 from models.User import User
+from models.Group import Group
 
 app = Flask(__name__)
 
@@ -39,6 +40,7 @@ def fill_users():
 
     if str(danius.id) in shelf:
         return
+
     shelf[str(danius.id)] = danius
     shelf[str(ernesta.id)] = ernesta
     shelf[str(karolis.id)] = karolis
@@ -46,3 +48,16 @@ def fill_users():
     shelf[str(martynass.id)] = martynass
     shelf[str(sarunas.id)] = sarunas
     shelf[str(alexei.id)] = alexei
+
+
+def fill_groups():
+    shelf = get_db("group.db")
+
+    floor6 = Group(1, 'Mediapark  - 6th floor (25)')
+    partners = Group(2, 'Mediapark HCK (101)')
+
+    if str(floor6.id) in shelf:
+        return
+
+    shelf[str(floor6.id)] = floor6
+    shelf[str(partners.id)] = partners

@@ -1,8 +1,5 @@
-from flask import Flask, g
 from flask_restful import Resource
 from Repositories import get_db
-
-app = Flask(__name__)
 
 
 class UserController(Resource):
