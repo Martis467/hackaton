@@ -3,6 +3,7 @@ from flask_restful import Api
 from controllers.GroupController import GroupController
 from controllers.UserController import UserController
 from controllers.ActivityController import ActivityController
+from controllers.RandomGameController import RandomGameController
 
 app = Flask(__name__)
 
@@ -21,6 +22,7 @@ def index():
 api.add_resource(UserController, '/users')
 api.add_resource(GroupController, '/groups')
 api.add_resource(ActivityController, '/activities')
+api.add_resource(RandomGameController, '/game/<int:index>')
 
 
 if __name__ == '__main__':
