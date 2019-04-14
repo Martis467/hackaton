@@ -1,22 +1,36 @@
 from flask_restful import Resource
-from Repositories import get_db
 from repository.DatabaseManager import querry_database
+from models.Group import Group
+from models.User import User
 
 
 class GroupController(Resource):
     def get(self):
-        shelf = self.get_groups()
+        group_result = self.get_groups()
+        user_result = self.get_users()
 
-        keys = list(shelf.keys())
+        grouped_users = []
+
+        grouped_user1 = convert_to_json(group_result[0], user_result[0:3])
+        grouped_user2 = convert_to_json(group_result[1], user_result[3:])
+
+        grouped_users.append(grouped_user1)
+        grouped_users.append(grouped_user2)
+
+        return {'message': 'Success', 'data': grouped_users}, 200
+
+    def get_groups(self):
+        group_result = querry_database('SELECT * FROM Groupings')
 
         groups = []
 
-        for key in keys:
-            groups.append(convert_to_json(shelf[key]))
+        for grp in group_result:
+            group = Group(grp)
+            groups.append(group)
 
-        return {'message': 'Success', 'data': groups}, 200
+        return groups
 
-    def get_groups(self):
+    def get_users(self):
         user_result = querry_database('SELECT * FROM User')
 
         users = []
@@ -28,6 +42,19 @@ class GroupController(Resource):
         return users
 
 
-def convert_to_json(group):
+def convert_to_json(group, users):
     return {'id': group.id,
-            'name': group.name}
+            'name': group.name,
+            'users': get_user_dict(users)}
+
+
+def get_user_dict(users):
+    user_array = []
+
+    for user in users:
+        user_dict = {'id': user.id,
+         'fullName': user.full_name,
+         'photoUrl': user.photo_url}
+        user_array.append(user_dict)
+
+    return user_array

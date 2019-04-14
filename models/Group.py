@@ -1,4 +1,4 @@
 class Group:
-    def __init__(self, id, name):
-        self.id = id
-        self.name = name
+    def __init__(self, data):
+        self.id = data[0]
+        self.name = data[1]
