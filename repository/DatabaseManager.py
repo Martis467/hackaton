@@ -32,3 +32,5 @@ def insert_to_database(sql, task):
     cur = conn.cursor()
     cur.execute(sql, task)
     conn.commit()
+
+    return cur.lastrowid
